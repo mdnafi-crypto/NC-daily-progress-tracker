@@ -1,27 +1,23 @@
-# Daily Progress Tracker — Installable PWA
+DAILY PROGRESS TRACKER — VERSION 3
 
-## What's included
-- `index.html`: the tracker app
-- `manifest.webmanifest`: app name, icon, and home-screen display settings
-- `service-worker.js`: offline app-shell caching
-- `icons/`: app icons
+Upload all five files from this folder to the ROOT of your existing GitHub Pages repository, replacing the existing files:
+- index.html
+- manifest.webmanifest
+- service-worker.js
+- icon-192.png
+- icon-512.png
 
-Your tasks and settings are stored in this browser on this device. They are not automatically synced to another phone or browser. Use the app's export feature to keep backups.
+Commit to main. Then open the GitHub Pages website in Chrome and refresh.
 
-## Install it on Android
-A Progressive Web App must be served from **HTTPS** (or localhost). Opening `index.html` directly from a file manager will let you use the page, but browser installation and offline caching will not work.
+NEW IN V3
+- Progress check-in presets: 50%, 70%, and 100% of planned minutes.
+- Custom actual minutes remain editable.
+- Live preview shows actual minutes and percentage of planned time.
+- Optional browser notifications for scheduled task start and deadline.
+- Enable notifications in Settings > Task notifications.
 
-### Easiest route: GitHub Pages
-1. Extract this ZIP.
-2. Sign in to GitHub and create a new public repository (for example, `daily-progress-tracker`).
-3. Upload all the extracted files and the `icons` folder, keeping the folder structure.
-4. In the repository, open **Settings → Pages**.
-5. Under the build/deployment section, choose **Deploy from a branch**, select `main` and `/ (root)`, then save.
-6. Wait for GitHub Pages to publish the site. Open the published HTTPS address in Chrome on your Android phone.
-7. Tap **Install app** if it appears, or Chrome's **⋮ menu → Install app / Add to Home screen**.
+NOTIFICATION LIMITATION
+This PWA checks task times while the app page is running. Android/Chrome may suspend the page and timers after the app is closed or the phone is in battery-saving mode. Reliable reminders while fully closed require a push-notification server/backend or a native Android app with scheduled alarms. Do not rely on this version as an alarm clock.
 
-You can also host the same folder on another HTTPS static host. Do not rename or separate the manifest, service worker, or icons.
-
-## Important
-- This ZIP does not publish the app online for you; you choose and control the hosting account.
-- Keep the exported JSON backup somewhere safe before clearing browser data or changing phones.
+DATA
+Tasks remain stored locally in browser storage on each device. Updating these files on the same website origin should preserve existing local data, but export a JSON backup before updating as a precaution.
