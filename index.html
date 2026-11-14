@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#16a34a"><title>NC Progress App V5.4</title>
+<meta name="theme-color" content="#16a34a"><title>NC Progress App V5.6</title>
 <style>
 :root{--bg:#f8fafc;--panel:#fff;--text:#1e293b;--muted:#64748b;--line:#e2e8f0;--accent:#16a34a;--soft:#dcfce7;--green:#16a34a;--red:#ef4444;--amber:#eab308;--blue:#2563eb;--purple:#9333ea;--shadow:0 8px 28px #0f172a0b}
 [data-theme=dark]{--bg:#0f172a;--panel:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--line:#334155;--accent:#22c55e;--soft:#14532d;--shadow:0 8px 28px #0003}
@@ -13,7 +13,7 @@
  .app{padding:12px 12px calc(92px + env(safe-area-inset-bottom))}
  .layout{display:block}.side{position:fixed;z-index:30;left:0;right:0;bottom:0;top:auto;border:0;border-top:1px solid var(--line);border-radius:16px 16px 0 0;background:var(--panel);box-shadow:0 -8px 24px #15152a14;padding:7px 5px calc(7px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;gap:0;overflow-x:auto}
  .nav{flex:1;min-width:54px;width:auto;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;margin:0;padding:6px 3px;border-radius:10px;font-size:19px;line-height:1.1}
- .nav span{font-size:10px}.content{padding-bottom:10px}
+ .nav span{font-size:10px}.nav-icon{width:34px;height:34px}.content{padding-bottom:10px}
  .top-actions #quickAdd{display:none}
 }
 /* NC menu identity, moving blue-light active indicator, and global quick-add shortcut */
@@ -23,6 +23,7 @@
 .side-brand-name{font-size:14px}
 .nav-indicator{display:none}
 .nav{position:relative;z-index:1;transition:color .25s ease,transform .25s ease}
+.nav-icon{width:38px;height:38px;display:block;flex:none;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px #0002)}.nav-icon .nav-check{stroke-width:3.6}
 .nav.active{background:transparent;color:#087fe8}
 .nav.active span{font-weight:800}
 .fab{display:grid;place-items:center;position:fixed;right:24px;bottom:24px;z-index:35;width:60px;height:60px;border-radius:50%;font-size:34px;line-height:1;background:linear-gradient(145deg,#168dff,#39b9ff);color:white;box-shadow:0 8px 25px #168dff66;transition:opacity .25s ease,transform .25s ease,box-shadow .25s ease}
@@ -35,6 +36,7 @@
  .side-brand-name{display:none}
  .nav{flex:1;min-width:0;width:auto;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;margin:0;padding:7px 1px;border-radius:11px;font-size:19px;line-height:1.1}
  .nav span{font-size:10px}
+ .nav-icon{width:34px;height:34px}
  .nav-indicator{display:block;position:absolute;z-index:0;left:0;top:6px;height:calc(100% - 12px - env(safe-area-inset-bottom));width:0;border-radius:12px;background:linear-gradient(135deg,#e5f4ff,#cceaff);box-shadow:0 0 14px #36aaff55,inset 0 0 0 1px #69bdff55;transition:transform .32s cubic-bezier(.2,.8,.2,1),width .32s ease;pointer-events:none}
  [data-theme=dark] .nav-indicator{background:linear-gradient(135deg,#173c5b,#164a70);box-shadow:0 0 17px #168dff66,inset 0 0 0 1px #42aaff66}
  .nav.active{color:#087fe8}
@@ -70,13 +72,39 @@
 @media(max-width:850px){.dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-main{grid-template-columns:1fr}}
 @media(max-width:520px){.dashboard-stats{gap:9px}.stat-card{padding:13px}.stat-value{font-size:23px}.time-value{font-size:19px}.stat-icon{width:37px;height:37px}.motivation-banner{padding:14px;gap:10px}.motivation-button{display:none}.dashboard-task-card #taskList{max-height:none}}
 .splash{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .55s ease}.splash-mark{font-size:58px;font-weight:950;letter-spacing:-4px;color:white;background:var(--accent);border-radius:25px;padding:18px 30px;box-shadow:0 15px 45px #16a34a55;animation:pop .8s both}.splash-name{font-size:15px;font-weight:800;letter-spacing:3px;margin-top:22px;animation:fadeUp .7s .35s both}.splash-name span{color:var(--accent)}.splash-sub{font-size:13px;letter-spacing:5px;color:var(--muted);margin-top:8px;animation:fadeUp .7s .75s both}@keyframes pop{from{transform:scale(.65);opacity:0}to{transform:scale(1);opacity:1}}@keyframes fadeUp{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}.salah-list{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:13px}.salah-item{border:1px solid var(--line);border-radius:12px;padding:10px 7px;text-align:center}.salah-item b{display:block;font-size:13px}.salah-item small{display:block;color:var(--muted);font-size:10px;margin:3px 0 7px}.salah-item button{font-size:11px;padding:6px 8px}.salah-item.done{background:color-mix(in srgb,var(--green) 12%,var(--panel));border-color:var(--green)}@media(max-width:520px){.salah-list{grid-template-columns:repeat(2,1fr)}}
+
+/* V5.5: refined NC identity, modal controls and narrow-screen dashboard fit */
+.nc-logo-svg{display:block;width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.nc-logo-svg .logo-baseline{stroke-width:2.2;opacity:.7}
+.logo{display:grid;place-items:center;width:46px;height:46px;padding:0;border-radius:14px;background:linear-gradient(145deg,#168dff,#39b9ff);box-shadow:0 5px 16px #168dff44;color:#fff;flex:none}
+.side-brand-mark{display:grid;place-items:center;width:38px;height:38px;padding:0;border-radius:12px;background:linear-gradient(145deg,#168dff,#39b9ff);color:#fff;box-shadow:0 4px 14px #168dff55;flex:none}
+.side-brand-mark .nc-logo-svg{width:25px;height:25px}
+.dialog{position:relative;padding-top:24px}
+.dialog-heading,.progress-head{position:relative;display:block;min-height:48px;padding:0 54px 4px 0;margin-bottom:12px}
+.dialog-heading h2{margin:0}
+.progress-heading-copy{min-width:0;overflow-wrap:anywhere}
+.progress-head h2{margin:4px 0 0}
+.modal-close{position:absolute;top:0;right:0;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fff!important;color:#172033!important;border:1px solid #e2e8f0!important;font-size:27px;font-weight:500;line-height:1;box-shadow:0 2px 8px #0002;z-index:2}
+.progress-dialog{padding-top:24px}
+.progress-actions .save-progress-action{background:#e0f2fe;color:#075985;border:1px solid #7dd3fc}
+[data-theme=dark] .progress-actions .save-progress-action{background:#123b55;color:#bae6fd;border-color:#256987}
+.stat-top>div{min-width:0;flex:1}
+.time-value{white-space:normal;overflow-wrap:anywhere;word-break:normal;line-height:1.15;letter-spacing:-.45px;font-size:clamp(15px,3.5vw,21px)}
+.stat-icon{flex:0 0 37px;width:37px;height:37px}
+@media(max-width:520px){.time-value{font-size:clamp(14px,3.9vw,18px);letter-spacing:-.6px}.stat-icon{flex-basis:32px;width:32px;height:32px;font-size:18px}.stat-top{gap:5px}.stat-card{min-width:0;overflow:hidden}.dialog{padding:19px 16px}.progress-dialog{padding-top:20px}.modal-close{width:40px;height:40px}}
+
 </style>
 </head>
 <body><div id="splash" class="splash"><div class="splash-mark">NC</div><div class="splash-name">NAFI <span>×</span> CGPT</div><div class="splash-sub">PROGRESS APP</div></div><div class="app" id="mainApp" style="opacity:0">
-<header class="top"><div class="brand"><span class="logo">NC</span> NC Progress</div><div class="top-actions"><span id="todayLabel" class="muted"></span><button class="iconbtn" id="themeBtn" title="Toggle theme">☾</button><button class="btn primary" id="quickAdd">＋ Add task</button></div></header>
+<header class="top"><div class="brand"><span class="logo" aria-label="NC Progress logo"><svg class="nc-logo-svg" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34V14l13 20V14"/><path d="M39 17.5a12 12 0 1 0 0 13"/><path d="M8 39h32" class="logo-baseline"/></svg></span> NC Progress</div><div class="top-actions"><span id="todayLabel" class="muted"></span><button class="iconbtn" id="themeBtn" title="Toggle theme">☾</button><button class="btn primary" id="quickAdd">＋ Add task</button></div></header>
 <div class="layout"><aside class="side">
-<div class="side-brand" aria-label="NC Progress logo"><span class="side-brand-mark">NC</span><span class="side-brand-name">NC</span></div><span class="nav-indicator" aria-hidden="true"></span>
-<button class="nav active" data-page="today">◷ <span>Today</span></button><button class="nav" data-page="plan">▤ <span>Plan</span></button><button class="nav" data-page="analytics">▥ <span>Insights</span></button><button class="nav" data-page="calendar">▦ <span>Calendar</span></button><button class="nav" data-page="history">◴ <span>History</span></button><button class="nav" data-page="settings">⚙ <span>Settings</span></button>
+<div class="side-brand" aria-label="NC Progress logo"><span class="side-brand-mark" aria-label="NC Progress logo"><svg class="nc-logo-svg" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34V14l13 20V14"/><path d="M39 17.5a12 12 0 1 0 0 13"/><path d="M8 39h32" class="logo-baseline"/></svg></span><span class="side-brand-name">NC</span></div><span class="nav-indicator" aria-hidden="true"></span>
+<button class="nav active" data-page="today" aria-label="Today"><svg class="nav-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M7 28a17 17 0 0 1 34 0"/><path d="M24 5v5M8 12l4 4M40 12l-4 4M24 27l10-10"/><path d="m10 31 9 9L39 20" class="nav-check"/></svg><span>Today</span></button>
+<button class="nav" data-page="plan" aria-label="Plan"><svg class="nav-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M5 7h11v9H5zM20 7h11v9H20zM35 7h8v9h-8zM5 22h11v9H5zM20 22h11v9H20zM35 22h8v9h-8z"/><path d="M8 35v9M24 35v9M39 35v9M7 26l3 3 5-6M22 26l3 3 5-6M37 26l2 2 4-5"/></svg><span>Plan</span></button>
+<button class="nav" data-page="analytics" aria-label="Insights"><svg class="nav-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5a16 16 0 0 0-9 29c2 1 3 3 3 5h12c0-2 1-4 3-5A16 16 0 0 0 24 5Z"/><path d="M18 43h12M20 39h8M14 27l5-6 5 3 8-10M18 29v-5M25 29v-9M32 29V17"/></svg><span>Insights</span></button>
+<button class="nav" data-page="calendar" aria-label="Calendar"><svg class="nav-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="9" width="38" height="34" rx="4"/><path d="M14 5v9M34 5v9M5 19h38M13 26h5M23 26h5M33 26h3M13 34h5M23 34h5M33 34h3"/><circle cx="27" cy="34" r="5"/></svg><span>Calendar</span></button>
+<button class="nav" data-page="history" aria-label="History"><svg class="nav-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="20" cy="25" r="15"/><path d="M16 5h8M20 10V5M20 25l-7-6M20 25l7-8M32 35l6 6M31 32l11-3 3-11"/><path d="M29 40 43 26"/></svg><span>History</span></button>
+<button class="nav" data-page="settings" aria-label="Settings"><svg class="nav-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M20 4h8l2 5 5 2 5-2 4 7-4 4v6l4 4-4 7-5-2-5 2-2 5h-8l-2-5-5-2-5 2-4-7 4-4v-6l-4-4 4-7 5 2 5-2z"/><circle cx="24" cy="23" r="7"/><path d="m29 29 12 12M36 36l4-4"/></svg><span>Settings</span></button>
 </aside><main class="content">
 <section id="today" class="section active">
 <div class="heading"><div><h1>Dashboard</h1><div class="sub" id="longDate"></div></div><div class="row"><input type="date" id="datePicker"><button class="btn" id="todayBtn">Today</button></div></div>
@@ -115,14 +143,14 @@
 <section id="history" class="section"><div class="heading"><div><h1>History & comparison</h1><div class="sub">Review old records or compare any two dates.</div></div></div><div class="card"><h3>Compare two dates</h3><div class="toolbar"><label>First date <input type="date" id="compareA"></label><label>Second date <input type="date" id="compareB"></label><button class="btn primary" id="compareBtn">Compare</button></div><div id="compareResult" class="muted">Choose two dates to compare completion and time.</div></div><div class="card" style="margin-top:15px"><div class="row" style="justify-content:space-between"><h3>Recorded days</h3><input id="historySearch" placeholder="Search tasks or category…"></div><div style="overflow:auto"><table class="table"><thead><tr><th>Date</th><th>Tasks</th><th>Completed</th><th>Rate</th><th>Actual time</th><th></th></tr></thead><tbody id="historyRows"></tbody></table></div></div></section>
 <section id="settings" class="section"><div class="heading"><div><h1>Settings & backup</h1><div class="sub">Your data stays on this device unless you export it.</div></div></div><div class="grid two"><div class="card"><h3>Preferences</h3><div class="field"><label>Daily completion target (%)</label><input type="number" id="targetInput" min="1" max="100" value="80"></div><div class="field"><label>Task categories (comma separated)</label><textarea id="categoriesInput" rows="3">Study, Exercise, Personal, Religious, Work</textarea></div><button class="btn primary" id="saveSettings">Save preferences</button></div><div class="card"><h3>Backup & restore</h3><p class="muted">Export a full JSON backup or a CSV task list. Import a JSON backup to restore your data on this device.</p><div class="row"><button class="btn primary" id="exportJson">Export JSON backup</button><button class="btn" id="exportCsv">Export CSV</button></div><div class="field" style="margin-top:15px"><label>Restore JSON backup</label><input type="file" id="importFile" accept=".json,application/json"></div><div class="footnote">Import replaces the current local dataset after confirmation. Keep a backup before restoring.</div></div></div><div class="card notification-card"><h3>🕌 Salah schedule & reminders</h3><p class="muted">Set your own prayer windows. Reminders are checked while the app is running: 20 minutes before a prayer deadline and a check-in after opening the app.</p><div id="salahSettings"></div><button class="btn primary" id="saveSalahSettings">Save Salah schedule</button><p class="footnote">Chasht is optional and has no default notifications.</p></div><div class="card notification-card"><h3>🔔 Task notifications</h3><p class="muted">Allow notifications to get a reminder when a task is due. On this PWA, reminders are most reliable while the app is open; Android may pause timers when the app is closed.</p><div class="row"><button class="btn primary" id="enableNotifications">Enable notifications</button><span class="pill" id="notificationStatus">Not enabled</span></div></div><div class="card" style="margin-top:15px"><h3>Data & calculation notes</h3><p class="muted">Task completion rate = completed ÷ planned tasks. Time achievement = actual minutes ÷ planned minutes; it is shown separately and is not treated as a productivity score. A day with tasks but zero completions is 0%. A day with no tasks is shown as “No data” and excluded from averages. Pending tasks remain planned until marked completed or missed. Recurring tasks are generated for dates as you visit them; historical records are retained.</p><button class="btn" id="clearData">Delete all local data…</button></div></section>
 </main></div></div>
-<div class="modal" id="taskModal"><div class="dialog"><div class="row" style="justify-content:space-between"><h2 id="modalTitle">Add task</h2><button class="iconbtn" id="closeModal">✕</button></div><form id="taskForm"><input type="hidden" id="taskId"><div class="field"><label>Task name *</label><input id="taskName" required maxlength="100" placeholder="e.g. Study English literature"></div><div class="formgrid"><div class="field"><label>Date</label><input type="date" id="taskDate" required></div><div class="field"><label>Category</label><select id="taskCategory"></select></div><div class="field"><label>Start time</label><input type="time" id="taskStart"></div><div class="field"><label>Deadline</label><input type="time" id="taskDeadline"></div><div class="field"><label>Priority</label><select id="taskPriority"><option>High</option><option selected>Medium</option><option>Low</option></select></div><div class="field"><label>Expected duration (minutes)</label><input type="number" id="taskPlanned" min="0" value="30"></div><div class="field"><label>Actual time spent (minutes)</label><input type="number" id="taskActual" min="0" value="0"></div><div class="field"><label>Status</label><select id="taskStatus"><option value="pending">Pending</option><option value="completed">Completed</option><option value="missed">Missed</option></select></div></div><div class="field"><label>Repeat</label><select id="taskRepeat"><option value="none">Does not repeat</option><option value="daily">Every day</option><option value="weekly">Every week</option></select></div><div class="field"><label>Notes</label><textarea id="taskNotes" rows="2" placeholder="Optional notes…"></textarea></div><div class="row" style="justify-content:flex-end"><button type="button" class="btn" id="cancelModal">Cancel</button><button class="btn primary" type="submit">Save task</button></div></form></div></div><div class="modal" id="progressModal"><div class="dialog progress-dialog">
-<div class="row" style="justify-content:space-between"><div><div class="muted" id="progressWhen">Task check-in</div><h2 id="progressTaskName" style="margin:4px 0 0">Task</h2></div><button class="iconbtn" id="closeProgress">✕</button></div>
+<div class="modal" id="taskModal"><div class="dialog"><div class="dialog-heading"><h2 id="modalTitle">Add task</h2><button class="iconbtn modal-close" id="closeModal" aria-label="Close">×</button></div><form id="taskForm"><input type="hidden" id="taskId"><div class="field"><label>Task name *</label><input id="taskName" required maxlength="100" placeholder="e.g. Study English literature"></div><div class="formgrid"><div class="field"><label>Date</label><input type="date" id="taskDate" required></div><div class="field"><label>Category</label><select id="taskCategory"></select></div><div class="field"><label>Start time</label><input type="time" id="taskStart"></div><div class="field"><label>Deadline</label><input type="time" id="taskDeadline"></div><div class="field"><label>Priority</label><select id="taskPriority"><option>High</option><option selected>Medium</option><option>Low</option></select></div><div class="field"><label>Expected duration (minutes)</label><input type="number" id="taskPlanned" min="0" value="30"></div><div class="field"><label>Actual time spent (minutes)</label><input type="number" id="taskActual" min="0" value="0"></div><div class="field"><label>Status</label><select id="taskStatus"><option value="pending">Pending</option><option value="completed">Completed</option><option value="missed">Missed</option></select></div></div><div class="field"><label>Repeat</label><select id="taskRepeat"><option value="none">Does not repeat</option><option value="daily">Every day</option><option value="weekly">Every week</option></select></div><div class="field"><label>Notes</label><textarea id="taskNotes" rows="2" placeholder="Optional notes…"></textarea></div><div class="row" style="justify-content:flex-end"><button type="button" class="btn" id="cancelModal">Cancel</button><button class="btn primary" type="submit">Save task</button></div></form></div></div><div class="modal" id="progressModal"><div class="dialog progress-dialog">
+<div class="progress-head"><div class="progress-heading-copy"><div class="muted" id="progressWhen">Task check-in</div><h2 id="progressTaskName" style="margin:4px 0 0">Task</h2></div><button class="iconbtn modal-close" id="closeProgress" aria-label="Close">×</button></div>
 <div class="progress-detail" id="progressTaskMeta"></div>
 <div class="field" style="margin-top:16px"><label>How much of your planned time did you complete?</label>
 <div class="time-presets"><button type="button" class="btn preset" data-minutes="50">50%</button><button type="button" class="btn preset" data-minutes="70">70%</button><button type="button" class="btn preset" data-minutes="100">Full time</button></div>
 <div class="field" style="margin-top:12px"><label for="actualMinutes">Or enter actual minutes</label><input type="number" id="actualMinutes" min="0" step="1" value="0"></div>
 <div class="muted" id="actualPreview" style="margin-top:6px"></div></div>
-<div class="progress-actions"><button class="btn" id="startContinue">▶ Start</button><button class="btn success-action" id="markDone">✓ Done</button><button class="btn missed-action" id="markMissed">✕ Not done</button><button class="btn" id="personalEmergency">⚑ Personal Emergency</button></div><div id="emergencyEditor" class="hidden" style="margin-top:12px"><label for="emergencyNote">Optional explanation (editable for 8 hours)</label><textarea id="emergencyNote" rows="2" placeholder="What interrupted this scheduled time?"></textarea><button class="btn primary small" id="saveEmergency">Save explanation</button></div>
+<div class="progress-actions"><button class="btn" id="startContinue">▶ Start</button><button class="btn save-progress-action" id="saveProgressDraft">Save time</button><button class="btn success-action" id="markDone">✓ Done</button><button class="btn missed-action" id="markMissed">✕ Not done</button><button class="btn" id="personalEmergency">⚑ Personal Emergency</button></div><div id="emergencyEditor" class="hidden" style="margin-top:12px"><label for="emergencyNote">Optional explanation (editable for 8 hours)</label><textarea id="emergencyNote" rows="2" placeholder="What interrupted this scheduled time?"></textarea><button class="btn primary small" id="saveEmergency">Save explanation</button></div>
 <div class="footnote">One tap records the result. You can adjust the actual minutes before confirming if needed.</div>
 </div></div>
 <button class="fab" id="fabAdd" aria-label="Add task">＋</button>
@@ -191,6 +219,26 @@ function compare(){let a=$('compareA').value,b=$('compareB').value;if(!a||!b)ret
 function openModal(t){$('taskModal').classList.add('show');$('modalTitle').textContent=t?'Edit task':'Add task';$('taskId').value=t?.id||'';$('taskName').value=t?.name||'';$('taskDate').value=t?.date||selected;$('taskCategory').innerHTML=db.settings.categories.map(c=>`<option>${esc(c)}</option>`).join('');$('taskCategory').value=t?.category||db.settings.categories[0];$('taskStart').value=t?.start||'';$('taskDeadline').value=t?.deadline||'';$('taskPriority').value=t?.priority||'Medium';$('taskPlanned').value=t?.planned??30;$('taskActual').value=t?.actual??0;$('taskStatus').value=t?.status||'pending';$('taskRepeat').value=t?.repeat||'none';$('taskNotes').value=t?.notes||''}
 function saveTask(e){e.preventDefault();let id=$('taskId').value,t={id:id||uid(),name:$('taskName').value.trim(),date:$('taskDate').value,category:$('taskCategory').value,start:$('taskStart').value,deadline:$('taskDeadline').value,priority:$('taskPriority').value,planned:Math.max(0,+$('taskPlanned').value||0),actual:Math.max(0,+$('taskActual').value||0),status:$('taskStatus').value,repeat:$('taskRepeat').value,notes:$('taskNotes').value};if(!t.name||!t.date)return;let i=db.tasks.findIndex(x=>x.id===id);if(i>=0)db.tasks[i]={...db.tasks[i],...t};else db.tasks.push(t);selected=t.date;persist();$('taskModal').classList.remove('show');renderAll();toast('Task saved')}
 
+function findTaskForCurrentTime(){
+ const now=new Date(),date=today(),current=now.getHours()*60+now.getMinutes();
+ const matches=tasksOn(date).filter(t=>t.status==='pending'&&t.start).map(t=>{
+  const [sh,sm]=t.start.split(':').map(Number);if(!Number.isFinite(sh)||!Number.isFinite(sm))return null;
+  const start=sh*60+sm;let end;
+  if(t.deadline){const [eh,em]=t.deadline.split(':').map(Number);if(!Number.isFinite(eh)||!Number.isFinite(em))return null;end=eh*60+em;if(end<=start)end+=1440;}
+  else end=start+Math.max(1,Number(t.planned)||0);
+  const nowAdjusted=current<start?current+1440:current;
+  return nowAdjusted>=start&&nowAdjusted<end?{task:t,start,end}:null;
+ }).filter(Boolean).sort((a,b)=>a.start-b.start);
+ return matches[0]?.task||null;
+}
+function autoOpenCurrentTask(){
+ const task=findTaskForCurrentTime();if(!task)return;
+ let last=null;try{last=JSON.parse(localStorage.getItem('nc-auto-checkin-v1')||'null')}catch(e){}
+ const key=`${today()}|${task.id}`;
+ if(last&&last.key===key&&Date.now()-last.at<10*60*1000)return;
+ localStorage.setItem('nc-auto-checkin-v1',JSON.stringify({key,at:Date.now()}));
+ selected=today();$('datePicker').value=selected;renderAll();openProgress(task);
+}
 function openProgress(t){
  if(!t)return;
  $('progressTaskName').textContent=t.name;
@@ -213,6 +261,12 @@ function saveProgress(status){
  if(t.timerStartedAt){t.actual=(+t.actual||0)+Math.max(0,Math.round((Date.now()-t.timerStartedAt)/60000));t.timerStartedAt=null;t.timerUsed=true;$('actualMinutes').value=t.actual;}
  t.actual=Math.max(0,Number($('actualMinutes').value)||0);
  persist();$('progressModal').classList.remove('show');renderAll();toast(status==='completed'?'Marked done ✓':'Marked not done');
+}
+function saveProgressDraft(){
+ const id=$('progressModal').dataset.taskId,t=db.tasks.find(x=>x.id===id);if(!t)return;
+ if(t.timerStartedAt){t.actual=(+t.actual||0)+Math.max(0,Math.round((Date.now()-t.timerStartedAt)/60000));t.timerStartedAt=null;t.timerUsed=true;$('startContinue').textContent='▶ Continue';}
+ t.actual=Math.max(0,Number($('actualMinutes').value)||0);
+ $('actualMinutes').value=t.actual;persist();updateActualPreview(t);renderToday();renderPlan();toast('Actual time saved · task remains pending');
 }
 function renderPlan(){
  const date=$('planDate').value||today(),filter=$('planFilter').value;
@@ -313,6 +367,7 @@ $('enableNotifications').onclick=async()=>{
 };
 refreshNotificationStatus();setInterval(()=>{checkDueTasks();checkSalahReminders()},30000);checkDueTasks();
 $('markDone').onclick=()=>saveProgress('completed');
+$('saveProgressDraft').onclick=saveProgressDraft;
 $('startContinue').onclick=startOrContinue;
 $('personalEmergency').onclick=()=>{$('emergencyEditor').classList.toggle('hidden')};
 $('saveEmergency').onclick=saveEmergency;
@@ -338,6 +393,7 @@ $('clearData').onclick=()=>{if(confirm('Permanently delete all tasks and prefere
 $('themeBtn').onclick=()=>{db.theme=db.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=db.theme==='dark'?'dark':'';persist();$('themeBtn').textContent=db.theme==='dark'?'☀':'☾';renderAll()};
 $('targetInput').value=db.settings.target;renderSalahSettings();$('categoriesInput').value=db.settings.categories.join(', ');document.documentElement.dataset.theme=db.theme==='dark'?'dark':'';$('themeBtn').textContent=db.theme==='dark'?'☀':'☾';$('compareA').value=shift(today(),-1);$('compareB').value=today();renderAll();checkSalahReminders();
 const introSeen=localStorage.getItem('nc-intro-seen-v1')==='1';const existingInstall=!!localStorage.getItem('dpt-v1');if(introSeen||existingInstall){localStorage.setItem('nc-intro-seen-v1','1');$('splash').remove();$('mainApp').style.opacity='1';}else{localStorage.setItem('nc-intro-seen-v1','1');setTimeout(()=>{const sp=$('splash');if(!sp)return;sp.style.opacity='0';$('mainApp').style.transition='opacity .5s';$('mainApp').style.opacity='1';setTimeout(()=>sp.remove(),600)},1900);}
+setTimeout(autoOpenCurrentTask,existingInstall||introSeen?450:2200);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')setTimeout(autoOpenCurrentTask,350)});
 window.addEventListener('resize',()=>{renderToday();renderAnalytics()});
 })();
 </script></body></html>
