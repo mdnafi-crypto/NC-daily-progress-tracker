@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#16a34a"><title>NC Progress App V5.6</title>
+<meta name="theme-color" content="#16a34a"><title>NC Progress App V5.7</title>
 <style>
 :root{--bg:#f8fafc;--panel:#fff;--text:#1e293b;--muted:#64748b;--line:#e2e8f0;--accent:#16a34a;--soft:#dcfce7;--green:#16a34a;--red:#ef4444;--amber:#eab308;--blue:#2563eb;--purple:#9333ea;--shadow:0 8px 28px #0f172a0b}
 [data-theme=dark]{--bg:#0f172a;--panel:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--line:#334155;--accent:#22c55e;--soft:#14532d;--shadow:0 8px 28px #0003}
@@ -93,6 +93,37 @@
 .stat-icon{flex:0 0 37px;width:37px;height:37px}
 @media(max-width:520px){.time-value{font-size:clamp(14px,3.9vw,18px);letter-spacing:-.6px}.stat-icon{flex-basis:32px;width:32px;height:32px;font-size:18px}.stat-top{gap:5px}.stat-card{min-width:0;overflow:hidden}.dialog{padding:19px 16px}.progress-dialog{padding-top:20px}.modal-close{width:40px;height:40px}}
 
+
+/* V5.7 — polished prayer check-in cards */
+.salah-card{position:relative;overflow:hidden;border:1px solid color-mix(in srgb,var(--accent) 20%,var(--line));background:linear-gradient(145deg,color-mix(in srgb,var(--panel) 94%,var(--soft)),var(--panel));}
+.salah-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+.salah-title-wrap{display:flex;align-items:center;gap:11px;min-width:0}
+.salah-emblem{width:43px;height:43px;display:grid;place-items:center;flex:none;border-radius:14px;background:linear-gradient(145deg,#dff5ff,#c7e8ff);color:#0878c9;font-size:23px;box-shadow:inset 0 1px 0 #fff,0 5px 14px #168dff18}
+.salah-heading{font-size:17px;font-weight:850;letter-spacing:-.2px;margin:0!important}
+.salah-subtitle{font-size:12px;color:var(--muted);margin-top:3px}
+.salah-summary{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.salah-summary .badge{font-weight:800}
+.salah-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-top:0}
+.salah-item{border:1px solid var(--line);border-radius:15px;padding:12px 9px 10px;text-align:left;background:color-mix(in srgb,var(--panel) 94%,var(--bg));min-width:0;transition:border-color .18s,background .18s,transform .18s}
+.salah-item b{display:block;font-size:14px;font-weight:800;letter-spacing:.1px}
+.salah-item small{display:block;color:var(--muted);font-size:10px;margin:4px 0 9px;white-space:nowrap}
+.salah-state{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:750;color:var(--muted);margin-bottom:9px;min-height:16px}
+.salah-state-dot{width:7px;height:7px;border-radius:50%;background:#94a3b8;flex:none}
+.salah-item.prayed{border-color:#22c55e88;background:linear-gradient(160deg,color-mix(in srgb,#22c55e 13%,var(--panel)),var(--panel))}
+.salah-item.prayed .salah-state{color:#16a34a}.salah-item.prayed .salah-state-dot{background:#22c55e;box-shadow:0 0 0 3px #22c55e20}
+.salah-item.missed{border-color:#ef444488;background:linear-gradient(160deg,color-mix(in srgb,#ef4444 10%,var(--panel)),var(--panel))}
+.salah-item.missed .salah-state{color:#ef4444}.salah-item.missed .salah-state-dot{background:#ef4444;box-shadow:0 0 0 3px #ef444420}
+.salah-actions{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.salah-action{padding:7px 4px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:10px;font-weight:750;line-height:1.1;white-space:nowrap}
+.salah-action.pray{border-color:#22c55e55;color:#16a34a;background:color-mix(in srgb,#22c55e 7%,var(--panel))}
+.salah-action.miss{border-color:#ef444455;color:#dc2626;background:color-mix(in srgb,#ef4444 6%,var(--panel))}
+.salah-action.selected{color:#fff!important;border-color:transparent!important}
+.salah-action.pray.selected{background:#16a34a}.salah-action.miss.selected{background:#dc444f}
+.salah-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px;padding-top:11px;border-top:1px solid var(--line)}
+.salah-foot-note{font-size:11px;color:var(--muted)}
+@media(max-width:850px){.salah-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:520px){.salah-card{padding:13px}.salah-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.salah-item{padding:11px 9px}.salah-heading{font-size:16px}.salah-emblem{width:39px;height:39px}.salah-foot{align-items:flex-start;flex-direction:column}.salah-action{font-size:10px;padding:8px 3px}}
+
 </style>
 </head>
 <body><div id="splash" class="splash"><div class="splash-mark">NC</div><div class="splash-name">NAFI <span>×</span> CGPT</div><div class="splash-sub">PROGRESS APP</div></div><div class="app" id="mainApp" style="opacity:0">
@@ -119,7 +150,7 @@
 
 <div id="motivational-banner" class="motivation-banner"><div class="motivation-symbol">ϟ</div><div class="motivation-copy"><h3 id="motivation-title">Keep Going!</h3><p id="motivation-text">Record your actual activities and maintain consistency to build solid habits.</p></div><button class="btn motivation-button" id="motivationViewTasks">View Tasks</button></div>
 
-<div class="card salah-card" style="margin-bottom:15px"><div class="row" style="justify-content:space-between"><div><h3 style="margin-bottom:3px">🕌 Daily Salah tracker</h3><div class="muted" style="font-size:12px">Record the five obligatory prayers separately from task productivity.</div></div><span class="badge" id="salahSummary">0 / 5</span></div><div id="salahList" class="salah-list"></div><div class="row" style="justify-content:space-between;margin-top:8px"><button class="btn small" id="chashtToggle">＋ Add optional Chasht</button><span class="muted" id="chashtState"></span></div><div id="chashtArea" class="hidden"></div></div>
+<div class="card salah-card" style="margin-bottom:15px"><div class="salah-card-head"><div class="salah-title-wrap"><div class="salah-emblem">🕌</div><div><h3 class="salah-heading">Daily Salah</h3><div class="salah-subtitle">Track each prayer for the selected date</div></div></div><div class="salah-summary"><span class="badge" id="salahSummary">0 / 5 prayed</span></div></div><div id="salahList" class="salah-list"></div><div class="salah-foot"><div class="salah-foot-note">Choose <b>Prayed</b> or <b>Missed</b>. Tap again to clear a mark.</div><div class="row" style="gap:8px"><button class="btn small" id="chashtToggle">＋ Optional Chasht</button><span class="muted" id="chashtState" style="font-size:11px"></span></div></div><div id="chashtArea" class="hidden" style="margin-top:10px"></div></div>
 
 <div class="grid dashboard-main">
  <div class="card dashboard-task-card"><div class="row" style="justify-content:space-between;margin-bottom:10px"><div><h3 style="margin-bottom:3px">Tasks for Selected Date</h3><div class="muted" style="font-size:12px">Review your planned activities and record progress.</div></div><span class="badge" id="taskCountBadge">0 tasks</span></div>
@@ -298,9 +329,11 @@ function refreshNotificationStatus(){
 
 function renderSalah(){
  const date=selected,rec=db.salahRecords[date]||{},names=['Fajr','Dhuhr','Asr','Maghrib','Isha'];
- $('salahList').innerHTML=names.map(n=>{let done=!!rec[n],w=db.salah[n]||{};return `<div class="salah-item ${done?'done':''}"><b>${n}</b><small>${w.start||'--:--'} – ${w.end||'--:--'}</small><button class="btn small" data-salah="${n}">${done?'✓ Prayed':'Mark prayed'}</button></div>`}).join('');
- $('salahSummary').textContent=`${names.filter(n=>rec[n]).length} / 5 prayed`;
- $('chashtState').textContent=db.chashtRecords[date]?'Chasht recorded':'Not recorded';
+ const statusOf=n=>rec[n]===true?'prayed':rec[n]===false||!rec[n]?'none':rec[n];
+ $('salahList').innerHTML=names.map(n=>{const status=statusOf(n),w=db.salah[n]||{},label=status==='prayed'?'Prayed':status==='missed'?'Missed':'Not marked';return `<div class="salah-item ${status==='prayed'?'prayed':status==='missed'?'missed':''}"><b>${n}</b><small>${w.start||'--:--'} – ${w.end||'--:--'}</small><div class="salah-state"><i class="salah-state-dot"></i>${label}</div><div class="salah-actions"><button class="salah-action pray ${status==='prayed'?'selected':''}" data-salah="${n}" data-salah-status="prayed" aria-pressed="${status==='prayed'}">✓ Prayed</button><button class="salah-action miss ${status==='missed'?'selected':''}" data-salah="${n}" data-salah-status="missed" aria-pressed="${status==='missed'}">✕ Missed</button></div></div>`}).join('');
+ const prayed=names.filter(n=>statusOf(n)==='prayed').length,missed=names.filter(n=>statusOf(n)==='missed').length,remaining=5-prayed-missed;
+ $('salahSummary').textContent=`${prayed}/5 prayed · ${missed} missed`;
+ $('chashtState').textContent=db.chashtRecords[date]?'✓ Recorded':'Not recorded';
  $('chashtArea').innerHTML=`<button class="btn small ${db.chashtRecords[date]?'success-action':''}" id="chashtMark">${db.chashtRecords[date]?'✓ Chasht prayed':'Mark Chasht prayed'}</button>`;
 }
 function renderSalahSettings(){
@@ -371,7 +404,7 @@ $('saveProgressDraft').onclick=saveProgressDraft;
 $('startContinue').onclick=startOrContinue;
 $('personalEmergency').onclick=()=>{$('emergencyEditor').classList.toggle('hidden')};
 $('saveEmergency').onclick=saveEmergency;
-$('salahList').onclick=e=>{let b=e.target.closest('[data-salah]');if(!b)return;let n=b.dataset.salah;db.salahRecords[selected]=db.salahRecords[selected]||{};db.salahRecords[selected][n]=!db.salahRecords[selected][n];persist();renderSalah();toast(`${n} updated`)};
+$('salahList').onclick=e=>{let b=e.target.closest('[data-salah][data-salah-status]');if(!b)return;let n=b.dataset.salah,status=b.dataset.salahStatus;db.salahRecords[selected]=db.salahRecords[selected]||{};const current=db.salahRecords[selected][n]===true?'prayed':db.salahRecords[selected][n]===false||!db.salahRecords[selected][n]?'none':db.salahRecords[selected][n];if(current===status)delete db.salahRecords[selected][n];else db.salahRecords[selected][n]=status;persist();renderSalah();toast(`${n}: ${current===status?'mark cleared':status==='prayed'?'marked prayed':'marked missed'}`)};
 $('chashtToggle').onclick=()=>$('chashtArea').classList.toggle('hidden');
 $('chashtArea').onclick=e=>{if(e.target.id==='chashtMark'){db.chashtRecords[selected]=!db.chashtRecords[selected];persist();renderSalah();toast('Chasht updated')}};
 $('saveSalahSettings').onclick=saveSalahSettings;
