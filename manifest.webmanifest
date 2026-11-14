@@ -1,14 +1,15 @@
 {
   "id": "./",
-  "name": "NC Progress App V5.6",
+  "name": "NC Progress",
   "short_name": "NC Progress",
   "description": "Plan your day, track tasks, Salah and review your progress.",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f5f6fb",
+  "background_color": "#f8fafc",
   "theme_color": "#16a34a",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "./icon-192.png",
