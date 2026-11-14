@@ -1,5 +1,5 @@
-NC Progress App V5
-==================
+NC Progress App V5.1
+====================
 
 Install on Android:
 1. Extract this ZIP.
@@ -7,9 +7,11 @@ Install on Android:
 3. Open the HTTPS site in Chrome.
 4. Open Chrome's menu (⋮) and choose Install app / Add to Home screen.
 
-V5 features:
+V5.1 features (includes all V5 features):
 - Animated NAFI × CGPT → NC → PROGRESS APP intro.
 - Mobile-first interface with Today, Plan, Insights, Calendar, History and Settings.
+- Service worker is registered automatically on HTTPS hosting; updated app shell is cached for offline use.
+- Recurring tasks are generated from the original template only, with duplicate legacy occurrences consolidated.
 - Add task button on desktop and floating + button on mobile.
 - Task check-in: Start/Continue timer, 50%, 70%, Full time, custom actual minutes, Done and Not done.
 - Personal Emergency with an optional explanation. Explained emergencies reduce their negative effect on the completion score; an explanation can be edited for 8 hours.
