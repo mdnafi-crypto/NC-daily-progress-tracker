@@ -1,9 +1,9 @@
-NC PROGRESS V5.8 — INSTALL / UPDATE
+NC PROGRESS V5.9 — INSTALL / UPDATE
 
 Files: upload every file in this ZIP to the root of your GitHub Pages repository, replacing the existing files. Keep the two PNG icons and service-worker.js alongside index.html and manifest.webmanifest.
 
 INSTALLABILITY FIX
-V5.7's index.html did not link its web app manifest. V5.8 adds the manifest link, icon metadata, and a versioned service-worker cache. After deployment, open the HTTPS GitHub Pages URL in Chrome.
+V5.7's index.html did not link its web app manifest. V5.9 adds the manifest link, icon metadata, and a versioned service-worker cache. After deployment, open the HTTPS GitHub Pages URL in Chrome.
 
 PROFILE
 Display name and profile picture are stored in this browser and included in JSON/sync exports. Pictures are resized before storage.

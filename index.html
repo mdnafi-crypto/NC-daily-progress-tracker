@@ -7,7 +7,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>NC Progress App V5.8</title>
+<title>NC Progress App V5.9</title>
 <style>
 :root{--bg:#f8fafc;--panel:#fff;--text:#1e293b;--muted:#64748b;--line:#e2e8f0;--accent:#16a34a;--soft:#dcfce7;--green:#16a34a;--red:#ef4444;--amber:#eab308;--blue:#2563eb;--purple:#9333ea;--shadow:0 8px 28px #0f172a0b}
 [data-theme=dark]{--bg:#0f172a;--panel:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--line:#334155;--accent:#22c55e;--soft:#14532d;--shadow:0 8px 28px #0003}
@@ -132,12 +132,20 @@
 
 .profile-chip{display:flex;align-items:center;gap:8px;padding:5px 10px 5px 5px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--text);font-weight:650;max-width:180px}.profile-chip img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:var(--soft);display:block}.profile-chip img:not([src]),.profile-chip img[src=""]{display:none}.profile-editor{display:flex;align-items:center;gap:16px;margin:8px 0 14px}.avatar-preview{width:76px;height:76px;border-radius:50%;background:var(--soft);color:var(--accent);display:grid;place-items:center;font-size:22px;font-weight:850;overflow:hidden;flex:none;border:2px solid var(--line)}.avatar-preview img{width:100%;height:100%;object-fit:cover}.profile-fields{flex:1;min-width:0}.profile-settings-card,.sync-card{margin-bottom:15px}.profile-fields .field{margin-bottom:9px}.profile-fields input[type=text]{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}.sync-card .footnote{margin-top:12px}.footnote{font-size:12px;color:var(--muted)}
 @media(max-width:520px){.app{padding:12px}.top{gap:7px}.profile-chip{max-width:42px;padding:4px}.profile-chip span{display:none}.profile-chip img{width:30px;height:30px}.profile-editor{align-items:flex-start}.avatar-preview{width:64px;height:64px}}
+/* V5.9 final layout overrides: scroll content ends above the fixed mobile bar. */
+@media(max-width:700px){
+ .app{padding:12px 12px calc(126px + env(safe-area-inset-bottom))}
+ .content{padding-bottom:28px}
+ .side-brand{display:none!important}
+ .fab{bottom:calc(96px + env(safe-area-inset-bottom))}
+}
+.modal{z-index:40}
 </style>
 </head>
 <body><div id="splash" class="splash"><div class="splash-mark">NC</div><div class="splash-name">NAFI <span>×</span> CGPT</div><div class="splash-sub">PROGRESS APP</div></div><div class="app" id="mainApp" style="opacity:0">
 <header class="top"><div class="brand"><span class="logo" aria-label="NC Progress logo"><svg class="nc-logo-svg" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34V14l13 20V14"/><path d="M39 17.5a12 12 0 1 0 0 13"/><path d="M8 39h32" class="logo-baseline"/></svg></span> NC Progress</div><div class="top-actions"><span id="todayLabel" class="muted"></span><button class="profile-chip" id="profileShortcut" type="button" title="Open profile settings"><img id="headerAvatar" alt=""><span id="headerProfileName">Your profile</span></button><button class="iconbtn" id="themeBtn" title="Toggle theme">☾</button><button class="btn primary" id="quickAdd">＋ Add task</button></div></header>
 <div class="layout"><aside class="side">
-<div class="side-brand" aria-label="NC Progress logo"><span class="side-brand-mark" aria-label="NC Progress logo"><svg class="nc-logo-svg" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34V14l13 20V14"/><path d="M39 17.5a12 12 0 1 0 0 13"/><path d="M8 39h32" class="logo-baseline"/></svg></span><span class="side-brand-name">NC</span></div><span class="nav-indicator" aria-hidden="true"></span>
+<span class="nav-indicator" aria-hidden="true"></span>
 <button class="nav active" data-page="today" aria-label="Today"><svg class="nav-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M7 28a17 17 0 0 1 34 0"/><path d="M24 5v5M8 12l4 4M40 12l-4 4M24 27l10-10"/><path d="m10 31 9 9L39 20" class="nav-check"/></svg><span>Today</span></button>
 <button class="nav" data-page="plan" aria-label="Plan"><svg class="nav-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M5 7h11v9H5zM20 7h11v9H20zM35 7h8v9h-8zM5 22h11v9H5zM20 22h11v9H20zM35 22h8v9h-8z"/><path d="M8 35v9M24 35v9M39 35v9M7 26l3 3 5-6M22 26l3 3 5-6M37 26l2 2 4-5"/></svg><span>Plan</span></button>
 <button class="nav" data-page="analytics" aria-label="Insights"><svg class="nav-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5a16 16 0 0 0-9 29c2 1 3 3 3 5h12c0-2 1-4 3-5A16 16 0 0 0 24 5Z"/><path d="M18 43h12M20 39h8M14 27l5-6 5 3 8-10M18 29v-5M25 29v-9M32 29V17"/></svg><span>Insights</span></button>
@@ -434,7 +442,7 @@ $('profileShortcut').onclick=()=>document.querySelector('[data-page=settings]').
 $('avatarFile').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){toast('Choose an image file');return}try{const data=await new Promise((resolve,reject)=>{const img=new Image(),url=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas'),size=256;c.width=size;c.height=size;const ctx=c.getContext('2d'),scale=Math.max(size/img.width,size/img.height),w=img.width*scale,h=img.height*scale;ctx.drawImage(img,(size-w)/2,(size-h)/2,w,h);URL.revokeObjectURL(url);resolve(c.toDataURL('image/jpeg',.82))};img.onerror=reject;img.src=url});db.settings.profile=db.settings.profile||{};db.settings.profile.avatar=data;$('avatarPreview').innerHTML=`<img src="${data}" alt="Profile picture">`;toast('Picture ready — tap Save profile')}catch(err){toast('Could not read that picture')}e.target.value=''};
 $('saveProfile').onclick=()=>{db.settings.profile=db.settings.profile||{};db.settings.profile.name=$('profileNameInput').value.trim().slice(0,40);persist();renderProfile();toast('Profile saved')};
 $('removeAvatar').onclick=()=>{db.settings.profile=db.settings.profile||{};db.settings.profile.avatar='';persist();renderProfile();toast('Profile picture removed')};
-$('exportSync').onclick=()=>download('NC-Progress-sync-'+today()+'.json',JSON.stringify({app:'NC Progress',version:'5.8',exportedAt:new Date().toISOString(),data:db},null,2),'application/json');
+$('exportSync').onclick=()=>download('NC-Progress-sync-'+today()+'.json',JSON.stringify({app:'NC Progress',version:'5.9',exportedAt:new Date().toISOString(),data:db},null,2),'application/json');
 $('saveSettings').onclick=()=>{db.settings.target=Math.max(1,Math.min(100,+$('targetInput').value||80));db.settings.categories=$('categoriesInput').value.split(',').map(x=>x.trim()).filter(Boolean);if(!db.settings.categories.length)db.settings.categories=['Other'];persist();renderAll();toast('Preferences saved')};
 function download(name,data,type){let blob=new Blob([data],{type}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}
 $('exportJson').onclick=()=>download('daily-progress-backup-'+today()+'.json',JSON.stringify(db,null,2),'application/json');
