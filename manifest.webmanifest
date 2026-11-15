@@ -2,14 +2,13 @@
   "id": "./",
   "name": "NC Progress",
   "short_name": "NC Progress",
-  "description": "Plan your day, track tasks, Salah and review your progress.",
+  "description": "Plan your day and track your progress.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "any",
-  "background_color": "#f8fafc",
-  "theme_color": "#16a34a",
-  "prefer_related_applications": false,
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#168dff",
   "icons": [
     {
       "src": "./icon-192.png",
@@ -22,6 +21,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "./icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
