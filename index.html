@@ -7,7 +7,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>NC Progress App V8.1</title>
+<title>NC Progress App V8.3</title>
 <style>
 :root{--bg:#f8fafc;--panel:#fff;--text:#1e293b;--muted:#64748b;--line:#e2e8f0;--accent:#16a34a;--soft:#dcfce7;--green:#16a34a;--red:#ef4444;--amber:#eab308;--blue:#2563eb;--purple:#9333ea;--shadow:0 8px 28px #0f172a0b}
 [data-theme=dark]{--bg:#0f172a;--panel:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--line:#334155;--accent:#22c55e;--soft:#14532d;--shadow:0 8px 28px #0003}
@@ -171,15 +171,59 @@ html,body{overscroll-behavior-y:contain}
 #ncPullRefresh .nc-pull-icon{display:inline-block;font-size:17px;line-height:1}
 #ncPullRefresh.ready .nc-pull-icon{transform:rotate(180deg)}
  .notification-highlight{outline:3px solid var(--accent);outline-offset:3px;box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 18%,transparent)}
-
-/* NC Progress V8.1 — opening identity color correction only. Preserve the existing intro animation and timing. */
+/* NC Progress V8.1+ — blue opening identity; animation and timing unchanged. */
 .splash-mark{background:linear-gradient(135deg,#168dff,#39b9ff)!important;box-shadow:0 15px 45px #168dff55!important;color:#fff!important}
 .splash-mark .splash-logo{stroke:#fff!important}
 .splash-name,.splash-name span{color:#087fe8!important}
 .splash-sub{color:#168dff!important}
+
+
+/* NC Progress V8.3 — premium dimensional in-app identity; restrained chart glow refined in V8.5.
+   The opening splash above is intentionally untouched. */
+.logo,.side-brand-mark{
+  position:relative;isolation:isolate;overflow:visible;
+  transform-style:preserve-3d;perspective:900px;
+  background:linear-gradient(145deg,#72d8ff 0%,#168dff 38%,#0754bd 72%,#073b91 100%);
+  border:1px solid #a8e7ff99;
+  box-shadow:0 8px 18px #087fe855,0 3px 0 #06428f,0 12px 26px #087fe833,inset 0 2px 2px #ffffffb8,inset 0 -5px 9px #002e7c77;
+  animation:ncLogoFloat 7s ease-in-out infinite;
+}
+.logo:before,.side-brand-mark:before{
+  content:"";position:absolute;inset:2px;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(135deg,#ffffffa8 0%,#ffffff32 24%,transparent 48%,#002d7733 100%);
+  transform:translateZ(5px);z-index:0;
+}
+.logo:after,.side-brand-mark:after{
+  content:"";position:absolute;left:13%;right:13%;top:7%;height:30%;border-radius:50%;
+  background:linear-gradient(180deg,#ffffff8a,#ffffff00);filter:blur(5px);pointer-events:none;z-index:0;
+}
+.logo .nc-logo-svg,.side-brand-mark .nc-logo-svg{
+  position:relative;z-index:1;transform:translateZ(13px);
+  filter:drop-shadow(0 2px 1px #00336c) drop-shadow(0 0 5px #d9f5ffb0);
+  stroke-width:3.9;
+}
+.logo{box-shadow:0 9px 20px #087fe866,0 4px 0 #06428f,0 14px 30px #087fe844,inset 0 2px 2px #ffffffc7,inset 0 -5px 9px #002e7c77}
+.side-brand-mark{box-shadow:0 6px 14px #087fe866,0 3px 0 #06428f,0 10px 22px #087fe844,inset 0 2px 2px #ffffffc7,inset 0 -4px 8px #002e7c77}
+@keyframes ncLogoFloat{
+  0%,100%{transform:translateY(0) rotateX(0deg) rotateY(-5deg) rotateZ(-1deg)}
+  25%{transform:translateY(-2px) rotateX(5deg) rotateY(4deg) rotateZ(0deg)}
+  50%{transform:translateY(0) rotateX(0deg) rotateY(7deg) rotateZ(1deg)}
+  75%{transform:translateY(-1px) rotateX(-4deg) rotateY(-3deg) rotateZ(0deg)}
+}
+@keyframes ncLogoShine{0%,100%{opacity:.45;transform:translateX(-120%) rotate(18deg)}50%{opacity:.9;transform:translateX(120%) rotate(18deg)}}
+.logo,.side-brand-mark{will-change:transform}
+/* V8.5 — the light belongs inside the plotted strokes, not around the chart. */
+canvas.chart{filter:none;transition:none}
+.chart-wrap{position:relative;isolation:isolate}
+.chart-wrap:after{content:none!important}
+.card:has(canvas.chart){transition:border-color .25s ease}
+.card:has(canvas.chart):hover{border-color:var(--line);box-shadow:var(--shadow)}
+@media(max-width:700px){.logo{animation-duration:8s}.side-brand-mark{animation-duration:9s}}
+@media(prefers-reduced-motion:reduce){.logo,.side-brand-mark{animation:none!important}canvas.chart{transition:none}}
+
 </style>
 </head>
-<body><div id="ncPullRefresh" aria-live="polite"><span class="nc-pull-icon">↓</span><span class="nc-pull-label">Pull to refresh</span></div><!-- NC PROGRESS V8.1 | OPENING ANIMATION: logo, then NC PROGRESS, then BUILD BY AN-NAFI. NEVER REMOVE. -->
+<body><div id="ncPullRefresh" aria-live="polite"><span class="nc-pull-icon">↓</span><span class="nc-pull-label">Pull to refresh</span></div><!-- NC PROGRESS V8.5 | OPENING ANIMATION: logo, then NC PROGRESS, then BUILD BY AN-NAFI. NEVER REMOVE. -->
 <div id="splash" class="splash"><div class="splash-mark"><svg class="nc-logo-svg splash-logo" viewBox="0 0 48 48" aria-hidden="true"><path pathLength="1" d="M8 34V14l13 20V14"/><path pathLength="1" d="M39 17.5a12 12 0 1 0 0 13"/><path pathLength="1" d="M8 39h32" class="logo-baseline"/></svg></div><div class="splash-name">NC PROGRESS</div><div class="splash-sub">BUILD BY AN-NAFI</div></div><div class="app" id="mainApp" style="opacity:0">
 <header class="top"><div class="brand"><span class="logo" aria-label="NC Progress logo"><svg class="nc-logo-svg" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34V14l13 20V14"/><path d="M39 17.5a12 12 0 1 0 0 13"/><path d="M8 39h32" class="logo-baseline"/></svg></span> NC Progress</div><div class="top-actions"><span id="todayLabel" class="muted"></span><button class="profile-chip" id="profileShortcut" type="button" title="Open profile settings"><img id="headerAvatar" alt=""><span id="headerProfileName">Your profile</span></button><button class="iconbtn" id="themeBtn" title="Toggle theme">☾</button><button class="btn primary" id="quickAdd">＋ Add task</button></div></header>
 <div class="layout"><aside class="side">
@@ -313,12 +357,12 @@ if(ncSelC&&ncSelC!==c){ncSelC._sel=-1;ncSelC._draw&&ncSelC._draw(1)}ncSelC=c;can
 function drawBars(c,items){hook(c);c._sel=-1;c._dn=null;const {x,w,h}=canvasSetup(c),col=chartColors(),max=Math.max(1,...items.flatMap(i=>[i.planned,i.actual])),base=h-40,FH=base-30,slot=(w-48)/items.length,bw=Math.min(28,slot/2.7),dp=Math.min(7,bw/3),cat=c.id==='categoryChart',cx0=i=>36+slot*i+slot/2,bx0=(i,k)=>k?cx0(i)+1:cx0(i)-bw-dp-2,top=v=>base-Math.max(6,FH*v/max);
 c._ht=[];items.forEach((it,i)=>{const pc=it.planned?Math.round(it.actual/it.planned*100):0,nm=cat?it.label:'Day '+it.label;[0,1].forEach(k=>{const v=k?it.actual:it.planned,bx=bx0(i,k);c._ht.push({x:bx-(k?2:3),y:0,w:bw+dp+4,h:h,ax:bx+(bw+dp)/2,ay:top(v)-dp,col:k?'#16a34a':'#94a3b8',t:!(it.planned||it.actual)?`${nm}: nothing planned or recorded yet.`:cat?(k?`${nm} · Completed: ${it.actual} of ${it.planned} tasks (${pc}%)`:`${nm} · Planned: ${it.planned} task${it.planned===1?'':'s'}`):(k?`${nm} · Actually spent: ${mins(it.actual)}`+(it.planned?` (${pc}% of the plan)`:''):`${nm} · Planned: ${mins(it.planned)}`)})})});
 ncAnim(c,c._draw=p=>{x.clearRect(0,0,w,h);x.lineWidth=1;x.strokeStyle=col.line;for(let k=0;k<=3;k++){const y=base-FH*k/3;x.beginPath();x.moveTo(30,y);x.lineTo(w-8,y);x.stroke()}
-items.forEach((it,i)=>{[it.planned,it.actual].forEach((v,k)=>{const cl=k?['#86efac','#16a34a','#166534']:['#cbd5e1','#94a3b8','#64748b'],bx=bx0(i,k),bh=Math.max(0,FH*v/max*p),y=base-bh,sel=c._sel===i*2+k;x.globalAlpha=c._sel>=0&&!sel?.35:1;if(bh>=1){if(sel){x.shadowColor=cl[1];x.shadowBlur=14}x.fillStyle=cl[1];x.fillRect(bx,y,bw,bh);x.shadowBlur=0;x.fillStyle=cl[2];x.beginPath();x.moveTo(bx+bw,y);x.lineTo(bx+bw+dp,y-dp);x.lineTo(bx+bw+dp,base-dp);x.lineTo(bx+bw,base);x.fill();x.fillStyle=cl[0];x.beginPath();x.moveTo(bx,y);x.lineTo(bx+dp,y-dp);x.lineTo(bx+bw+dp,y-dp);x.lineTo(bx+bw,y);x.fill();if(sel){x.strokeStyle=col.text;x.lineWidth=2;x.strokeRect(bx-1,y-1,bw+2,bh+2);x.lineWidth=1}if(items.length<=8){x.fillStyle=col.text;x.font='bold 9px system-ui';x.textAlign='center';x.fillText(Math.round(v*Math.min(p,1)),bx+bw/2,y-dp-4)}}x.globalAlpha=1});x.fillStyle=(c._sel>>1)===i?col.text:col.muted;x.font=(c._sel>>1)===i?'bold 11px system-ui':'10px system-ui';x.textAlign='center';x.fillText(it.label,cx0(i),base+16)})})}
+items.forEach((it,i)=>{[it.planned,it.actual].forEach((v,k)=>{const cl=k?['#86efac','#16a34a','#166534']:['#cbd5e1','#94a3b8','#64748b'],bx=bx0(i,k),bh=Math.max(0,FH*v/max*p),y=base-bh,sel=c._sel===i*2+k;x.globalAlpha=c._sel>=0&&!sel?.35:1;if(bh>=1){if(sel){x.shadowColor=cl[1];x.shadowBlur=3}x.fillStyle=cl[1];x.fillRect(bx,y,bw,bh);x.shadowBlur=0;x.fillStyle=cl[2];x.beginPath();x.moveTo(bx+bw,y);x.lineTo(bx+bw+dp,y-dp);x.lineTo(bx+bw+dp,base-dp);x.lineTo(bx+bw,base);x.fill();x.fillStyle=cl[0];x.beginPath();x.moveTo(bx,y);x.lineTo(bx+dp,y-dp);x.lineTo(bx+bw+dp,y-dp);x.lineTo(bx+bw,y);x.fill();if(sel){x.strokeStyle=col.text;x.lineWidth=2;x.strokeRect(bx-1,y-1,bw+2,bh+2);x.lineWidth=1}if(items.length<=8){x.fillStyle=col.text;x.font='bold 9px system-ui';x.textAlign='center';x.fillText(Math.round(v*Math.min(p,1)),bx+bw/2,y-dp-4)}}x.globalAlpha=1});x.fillStyle=(c._sel>>1)===i?col.text:col.muted;x.font=(c._sel>>1)===i?'bold 11px system-ui':'10px system-ui';x.textAlign='center';x.fillText(it.label,cx0(i),base+16)})})}
 function drawLine(c,labels,values){hook(c);c._sel=-1;c._dn=null;const {x,w,h}=canvasSetup(c),L=34,R=w-14,T=18,B=h-38,col=chartColors(),tg=db.settings.target||80,n=values.length,px=i=>L+(R-L)*(n===1?.5:i/(n-1)),py=v=>B-(B-T)*Math.min(100,v)/100,pts=values.map((v,i)=>v===null?null:{x:px(i),y:py(v),v});
 c._ht=values.map((v,i)=>({ax:px(i),ay:(pts[i]?pts[i].y:B)-12,col:'#16a34a',x:px(i)-14,y:0,w:28,h:h,t:v===null?`${labels[i]}: no tasks that day.`:`${labels[i]}: you finished ${Math.round(v)}% of your tasks`+(v>=tg?` — you hit your ${tg}% target 🎯`:` — a bit under your ${tg}% target.`)}));
 ncAnim(c,c._draw=p=>{x.clearRect(0,0,w,h);for(let k=0;k<=4;k++){const y=T+(B-T)*k/4;x.strokeStyle=col.line;x.lineWidth=1;x.beginPath();x.moveTo(L,y);x.lineTo(R,y);x.stroke();x.fillStyle=col.muted;x.font='10px system-ui';x.textAlign='right';x.fillText(100-k*25+'%',L-6,y+3)}
 x.setLineDash([5,4]);x.strokeStyle='#f59e0b';x.beginPath();x.moveTo(L,py(tg));x.lineTo(R,py(tg));x.stroke();x.setLineDash([]);x.fillStyle='#f59e0b';x.textAlign='right';x.fillText('goal',R,py(tg)-4);
-x.save();x.beginPath();x.rect(0,0,L+(R-L)*p+6,h);x.clip();const path=dy=>{let s=false;x.beginPath();pts.forEach(q=>{if(!q){s=false;return}if(!s){x.moveTo(q.x,q.y+dy);s=true}else x.lineTo(q.x,q.y+dy)})};x.lineCap='round';x.lineJoin='round';x.lineWidth=7;x.strokeStyle='#14532d';path(6);x.stroke();x.lineWidth=4;x.strokeStyle='#22c55e';path(0);x.stroke();
+x.save();x.beginPath();x.rect(0,0,L+(R-L)*p+6,h);x.clip();const path=dy=>{let s=false;x.beginPath();pts.forEach(q=>{if(!q){s=false;return}if(!s){x.moveTo(q.x,q.y+dy);s=true}else x.lineTo(q.x,q.y+dy)})};x.lineCap='round';x.lineJoin='round';x.lineWidth=7;x.strokeStyle='#14532d';path(6);x.stroke();x.lineWidth=4;x.strokeStyle='#22c55e';path(0);x.stroke();/* A hairline highlight sits on the centre of the graph stroke: no outer halo. */x.lineWidth=1.15;x.strokeStyle='rgba(220,252,231,.48)';path(-.25);x.stroke();
 pts.forEach(q=>{if(!q)return;x.fillStyle='#0003';x.beginPath();x.ellipse(q.x,q.y+9,6,2.5,0,0,7);x.fill();const g=x.createRadialGradient(q.x-2,q.y-2,1,q.x,q.y,7);g.addColorStop(0,'#dcfce7');g.addColorStop(1,'#15803d');x.fillStyle=g;x.beginPath();x.arc(q.x,q.y,6,0,7);x.fill()});x.restore();if(c._sel>=0){const sx=px(c._sel),q=pts[c._sel];x.strokeStyle="#16a34a99";x.lineWidth=2;x.setLineDash([4,3]);x.beginPath();x.moveTo(sx,T);x.lineTo(sx,B);x.stroke();x.setLineDash([]);if(q){x.strokeStyle="#fff";x.lineWidth=4;x.beginPath();x.arc(q.x,q.y,10,0,7);x.stroke();x.strokeStyle="#16a34a";x.lineWidth=2.5;x.beginPath();x.arc(q.x,q.y,10,0,7);x.stroke();x.fillStyle=col.text;x.font="bold 11px system-ui";x.textAlign="center";x.fillText(Math.round(q.v)+"%",q.x,Math.max(12,q.y-16))}}
 x.fillStyle=col.muted;x.textAlign='center';const st=Math.max(1,Math.ceil(labels.length/7));labels.forEach((l,i)=>{if(i%st===0)x.fillText(l,px(i),h-13)});if(c._sel>=0){x.clearRect(px(c._sel)-22,h-26,44,16);x.fillStyle=col.text;x.font='bold 11px system-ui';x.fillText(labels[c._sel],px(c._sel),h-13)}},1100,false)}
 function drawDonut(c,vals){hook(c);c._sel=-1;c._ht=null;const {x,w,h}=canvasSetup(c),tot=vals.reduce((a,b)=>a+b,0),cx=w/2,cy=84,rx=Math.min(86,w/2-20),ry=rx*.52,k=.55,th=16,cl=[['#34d399','#047857'],['#fbbf24','#a16207'],['#f87171','#b91c1c']],nm=['Done','Pending','Missed'],inf=['tasks you finished','tasks still waiting','tasks you did not do'],col=chartColors(),segs=[];let a0=0;
@@ -474,7 +518,8 @@ function renderSalah(){
   const status=rec[n]===true?'prayed':rec[n]===false?'missed':(rec[n]||'none'),endAt=salahWindowEnd(n,date),unlockAt=salahMarkingOpens(n,date),available=unlockAt!==null&&now>=unlockAt;
   if(status==='prayed')prayed++;if(status==='missed')missed++;
   const w=db.salah[n]||{},label=status==='prayed'?'Prayed':status==='missed'?'Missed':'Not marked';
-  const actions=available?`<div class="salah-actions"><button class="salah-action pray ${status==='prayed'?'selected':''}" data-salah="${n}" data-salah-status="prayed" aria-pressed="${status==='prayed'}">✓ Prayed</button><button class="salah-action miss ${status==='missed'?'selected':''}" data-salah="${n}" data-salah-status="missed" aria-pressed="${status==='missed'}">✕ Missed</button></div>`:`<div class="salah-locked">${unlockAt===null?'Set both prayer start and deadline in Settings':`Marking opens ${['Dhuhr','Asr','Maghrib','Isha'].includes(n)?'halfway through this prayer window':'after this prayer window ends'} (${new Date(unlockAt).toLocaleString([], {weekday:'short',hour:'2-digit',minute:'2-digit'})})`}</div>`;
+  const unlockTime=unlockAt===null?'':new Date(unlockAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+  const actions=available?`<div class="salah-actions"><button class="salah-action pray ${status==='prayed'?'selected':''}" data-salah="${n}" data-salah-status="prayed" aria-pressed="${status==='prayed'}">✓ Prayed</button><button class="salah-action miss ${status==='missed'?'selected':''}" data-salah="${n}" data-salah-status="missed" aria-pressed="${status==='missed'}">✕ Missed</button></div>`:`<div class="salah-locked">${unlockAt===null?'Set prayer times in Settings':`Available to mark at ${unlockTime}`}</div>`;
   return `<div class="salah-item ${status==='prayed'?'prayed':status==='missed'?'missed':''}"><b>${n==='Dhuhr'?'Zhar':n}</b><small>${w.start||'--:--'} – ${w.end||'--:--'}</small><div class="salah-state"><i class="salah-state-dot"></i>${label}</div>${actions}</div>`;
  }).join('');
  $('salahSummary').textContent=`${prayed}/5 prayed · ${missed} missed`;
