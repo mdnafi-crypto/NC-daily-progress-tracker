@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nc-progress-v6';
+const CACHE_NAME = 'nc-progress-v6-1';
 const APP_FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', event => {

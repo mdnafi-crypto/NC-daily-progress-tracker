@@ -1,4 +1,4 @@
-NC PROGRESS V6 — INSTALL / UPDATE
+NC PROGRESS V6.1 — INSTALL / UPDATE
 
 Files: upload every file in this ZIP to the root of your GitHub Pages repository, replacing the existing files. Keep the two PNG icons and service-worker.js alongside index.html and manifest.webmanifest.
 
@@ -27,5 +27,5 @@ The app day changes at 4:00 AM local Bangladesh time (Asia/Dhaka). The period fr
 V6 INSIGHTS & ANIMATION
 The Insights page has been rewritten in beginner-friendly language. Each chart explains what it shows and includes an expandable “More info” section. Charts animate when drawn (bars rise, the trend line reveals, and the task ring fills). Cards and interactive controls have subtle motion. The mobile bottom navigation no longer repeats the NC logo, and all pages have extra scroll clearance so the final content is not hidden behind the fixed menu.
 
-V6 NAVIGATION POLISH
-The active-menu light indicator uses a slower, smoother transition. The mobile bottom navigation is stabilised while scrolling and when switching pages, including Settings.
+V6.1 NAVIGATION FIX
+The active-menu light now glides over 0.95 seconds with a smooth ease-in-out curve. The mobile fixed navigation no longer uses GPU transform/backface hacks or clipping overflow; these can cause Android Chrome to temporarily drop a fixed bar while scrolling long pages such as Settings. The service-worker cache is versioned as V6.1 so the updated shell replaces the old cached one.
