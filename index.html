@@ -7,7 +7,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>NC Progress App V5.9</title>
+<title>NC Progress App V6</title>
 <style>
 :root{--bg:#f8fafc;--panel:#fff;--text:#1e293b;--muted:#64748b;--line:#e2e8f0;--accent:#16a34a;--soft:#dcfce7;--green:#16a34a;--red:#ef4444;--amber:#eab308;--blue:#2563eb;--purple:#9333ea;--shadow:0 8px 28px #0f172a0b}
 [data-theme=dark]{--bg:#0f172a;--panel:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--line:#334155;--accent:#22c55e;--soft:#14532d;--shadow:0 8px 28px #0003}
@@ -36,13 +36,14 @@
 .fab.is-scrolling{opacity:0;transform:translateY(12px) scale(.88);pointer-events:none}
 @media(max-width:700px){
  .side{position:fixed;z-index:30;left:0;right:0;bottom:0;top:auto;border:0;border-top:1px solid var(--line);border-radius:17px 17px 0 0;background:var(--panel);box-shadow:0 -8px 24px #15152a14;padding:7px 5px calc(7px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-around;gap:0;overflow:hidden}
+ .side{position:fixed!important;inset:auto 0 0 0!important;z-index:1000;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform;}
  .side-brand{display:none}
  .side-brand-mark{width:32px;height:32px;border-radius:11px;font-size:12px}
  .side-brand-name{display:none}
  .nav{flex:1;min-width:0;width:auto;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;margin:0;padding:7px 1px;border-radius:11px;font-size:19px;line-height:1.1}
  .nav span{font-size:10px}
  .nav-icon{width:34px;height:34px}
- .nav-indicator{display:block;position:absolute;z-index:0;left:0;top:6px;height:calc(100% - 12px - env(safe-area-inset-bottom));width:0;border-radius:12px;background:linear-gradient(135deg,#e5f4ff,#cceaff);box-shadow:0 0 14px #36aaff55,inset 0 0 0 1px #69bdff55;transition:transform .32s cubic-bezier(.2,.8,.2,1),width .32s ease;pointer-events:none}
+ .nav-indicator{display:block;position:absolute;z-index:0;left:0;top:6px;height:calc(100% - 12px - env(safe-area-inset-bottom));width:0;border-radius:12px;background:linear-gradient(135deg,#e5f4ff,#cceaff);box-shadow:0 0 14px #36aaff55,inset 0 0 0 1px #69bdff55;transition:transform .68s cubic-bezier(.22,1,.36,1),width .68s cubic-bezier(.22,1,.36,1);will-change:transform,width;pointer-events:none}
  [data-theme=dark] .nav-indicator{background:linear-gradient(135deg,#173c5b,#164a70);box-shadow:0 0 17px #168dff66,inset 0 0 0 1px #42aaff66}
  .nav.active{color:#087fe8}
  .fab{right:16px;bottom:calc(82px + env(safe-area-inset-bottom));width:57px;height:57px}
@@ -406,9 +407,9 @@ function registerServiceWorker(){
 registerServiceWorker();
 const navButtons=[...document.querySelectorAll('.nav')],navSide=document.querySelector('.side'),navIndicator=document.querySelector('.nav-indicator');
 if(!navButtons.some(n=>n.dataset.page===activePage))activePage='today';navButtons.forEach(n=>{const on=n.dataset.page===activePage;n.classList.toggle('active',on);$(n.dataset.page).classList.toggle('active',on)});
-function moveNavIndicator(){if(!navIndicator||window.innerWidth>700)return;const active=navButtons.find(n=>n.classList.contains('active'));if(!active)return;const sideRect=navSide.getBoundingClientRect(),r=active.getBoundingClientRect();navIndicator.style.width=r.width+'px';navIndicator.style.transform=`translateX(${r.left-sideRect.left}px)`;}
-navButtons.forEach(b=>b.onclick=()=>{navButtons.forEach(n=>n.classList.remove('active'));document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));b.classList.add('active');$(b.dataset.page).classList.add('active');activePage=b.dataset.page;saveUiState();moveNavIndicator();renderAll()});
-window.addEventListener('resize',moveNavIndicator);requestAnimationFrame(moveNavIndicator);
+function moveNavIndicator(){if(!navIndicator||!navSide||window.innerWidth>700)return;const active=navButtons.find(n=>n.classList.contains('active'));if(!active)return;const sideRect=navSide.getBoundingClientRect(),r=active.getBoundingClientRect();navIndicator.style.width=r.width+'px';navIndicator.style.transform=`translate3d(${r.left-sideRect.left}px,0,0)`;}
+navButtons.forEach(b=>b.onclick=()=>{navButtons.forEach(n=>n.classList.remove('active'));document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));b.classList.add('active');$(b.dataset.page).classList.add('active');activePage=b.dataset.page;saveUiState();requestAnimationFrame(()=>{moveNavIndicator();requestAnimationFrame(moveNavIndicator)});renderAll()});
+window.addEventListener('resize',moveNavIndicator);window.addEventListener('pageshow',()=>requestAnimationFrame(moveNavIndicator));window.addEventListener('orientationchange',()=>setTimeout(moveNavIndicator,120));document.addEventListener('visibilitychange',()=>{if(!document.hidden)requestAnimationFrame(moveNavIndicator)});if('ResizeObserver'in window){const navObserver=new ResizeObserver(()=>moveNavIndicator());navObserver.observe(navSide)}requestAnimationFrame(moveNavIndicator);
 let scrollFadeTimer;function fadeFabWhileScrolling(){const fab=$('fabAdd');if(!fab)return;fab.classList.add('is-scrolling');clearTimeout(scrollFadeTimer);scrollFadeTimer=setTimeout(()=>fab.classList.remove('is-scrolling'),260);}
 window.addEventListener('scroll',fadeFabWhileScrolling,{passive:true});window.addEventListener('touchmove',fadeFabWhileScrolling,{passive:true});
 $('quickAdd').onclick=$('fabAdd').onclick=$('dashboardAdd').onclick=()=>openModal();$('motivationViewTasks').onclick=()=>document.querySelector('[data-page=plan]').click();$('closeModal').onclick=$('cancelModal').onclick=()=>$('taskModal').classList.remove('show');$('taskForm').onsubmit=saveTask;$('datePicker').onchange=e=>{selected=e.target.value;renderAll()};$('todayBtn').onclick=()=>{selected=today();renderAll()};$('taskFilter').onchange=$('categoryFilter').onchange=renderToday;
@@ -448,7 +449,7 @@ $('profileShortcut').onclick=()=>document.querySelector('[data-page=settings]').
 $('avatarFile').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){toast('Choose an image file');return}try{const data=await new Promise((resolve,reject)=>{const img=new Image(),url=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas'),size=256;c.width=size;c.height=size;const ctx=c.getContext('2d'),scale=Math.max(size/img.width,size/img.height),w=img.width*scale,h=img.height*scale;ctx.drawImage(img,(size-w)/2,(size-h)/2,w,h);URL.revokeObjectURL(url);resolve(c.toDataURL('image/jpeg',.82))};img.onerror=reject;img.src=url});db.settings.profile=db.settings.profile||{};db.settings.profile.avatar=data;$('avatarPreview').innerHTML=`<img src="${data}" alt="Profile picture">`;toast('Picture ready — tap Save profile')}catch(err){toast('Could not read that picture')}e.target.value=''};
 $('saveProfile').onclick=()=>{db.settings.profile=db.settings.profile||{};db.settings.profile.name=$('profileNameInput').value.trim().slice(0,40);persist();renderProfile();toast('Profile saved')};
 $('removeAvatar').onclick=()=>{db.settings.profile=db.settings.profile||{};db.settings.profile.avatar='';persist();renderProfile();toast('Profile picture removed')};
-$('exportSync').onclick=()=>download('NC-Progress-sync-'+today()+'.json',JSON.stringify({app:'NC Progress',version:'5.9',exportedAt:new Date().toISOString(),data:db},null,2),'application/json');
+$('exportSync').onclick=()=>download('NC-Progress-sync-'+today()+'.json',JSON.stringify({app:'NC Progress',version:'6.0',exportedAt:new Date().toISOString(),data:db},null,2),'application/json');
 $('saveSettings').onclick=()=>{db.settings.target=Math.max(1,Math.min(100,+$('targetInput').value||80));db.settings.categories=$('categoriesInput').value.split(',').map(x=>x.trim()).filter(Boolean);if(!db.settings.categories.length)db.settings.categories=['Other'];persist();renderAll();toast('Preferences saved')};
 function download(name,data,type){let blob=new Blob([data],{type}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}
 $('exportJson').onclick=()=>download('daily-progress-backup-'+today()+'.json',JSON.stringify(db,null,2),'application/json');
